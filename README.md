@@ -20,7 +20,7 @@ To denoise the original signal without introducing phase distortion, I implement
 
 The reasoning behind this choice is because the Chebyshev filter has a steeper transition band, and perfectly preserves the pass band while greatly attenuating lower frequency noise.
 <br><br>
-<img src = Figures/Mag_Resp.png> 
+<img src = Figures/Mag_resp.png> 
 
 <h2>Moving Average</h2>
 
