@@ -5,14 +5,14 @@ from scipy.io.wavfile import write
 import matplotlib.pyplot as plt
 
 # Custom scripts
-from update_overlap_TESTTTT import *
+from update_overlap import *
 from remove_short_overlaps import *
 from convolve_fast import *
 from clump import *
 
 # Audio File Parameters
 #audio_path = 'D:\\Dorian\\My_Scripts\\30Label_filtered.wav'
-audio_path = 'C:\\Users\\doria\\OneDrive\\Desktop\\Storage\\Coding projects\\finch\\Audio_Filtered\\long.wav'
+audio_path = 'D:\\Dorian\\syllable_detection\\Audio_Filtered\\long2_filtered.wav'
 signal = AudioSegment.from_file(file = audio_path, 
                              format = "wav")
 duration = len(signal)/(1000) 
@@ -30,7 +30,7 @@ long_smooth = convolve_fast(y_abs,time_long,fs)
 
 # Overlap
 overlap_threshold = 30
-print(f"Calculating the overlap with threshold value: {overlap_threshold}")
+print(f"Calculating the overlap with min threshold value: {overlap_threshold}")
 overlap = np.empty(len(y)) # Preallocate zeros to temp
 overlap[:] = np.nan
 temp = short_smooth - long_smooth
@@ -69,6 +69,7 @@ plt.plot([0,2000], [6000, 6000], color='cyan', linestyle='--', linewidth=0.8)
 plt.plot([0,2000], [-8000, -8000], color='r', linestyle='--', linewidth=0.8)
 plt.plot([0,2000], [-6000, -6000], color='cyan', linestyle='--', linewidth=0.8)
 plt.legend(['Original','Cut','Threshold','Typical g_max'])
+plt.tight_layout()
 #plt.show()
 
 # Converting array to chunks

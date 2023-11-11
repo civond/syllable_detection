@@ -1,15 +1,16 @@
 import scipy
-from scipy.io import wavfile
-from pydub import AudioSegment
+#from scipy.io import wavfile
 import numpy as np
+import soundfile as sf
+from pydub import AudioSegment
 import matplotlib.pyplot as plt
 
 # Get audio paramaters
-audio_path = 'D:\\Dorian\\ZebraFinch_data\\Piezo\\30Label.wav'
+audio_path = 'D:\\Dorian\\syllable_detection\\Audio\\long.flac'
 #audio_path = 'D:\\Dorian\\ZebraFinch_data\\30cut\\01Label.wav'
 file_name = audio_path.split('\\')[-1]
 wav = AudioSegment.from_file(file = audio_path, 
-                             format = "wav")
+                             format = "flac")
 duration = len(wav)/1000 # Pydub does things in ms
 print(len(wav))
 print(duration)
@@ -36,7 +37,8 @@ order = 8
 y_filtered = scipy.signal.filtfilt(b,a,y)
 
 scaled = np.int16(y_filtered / np.max(np.abs(y_filtered)) * 32767)
-wavfile.write("test_later.wav", fs, scaled)
+#wavfile.write("test_later.flac", fs, scaled)
+sf.write("test_later.flac",scaled, fs,format='flac')
 #y_filtered.export(out_f="test.wav",format="wav")
 
 # Plotting signals
