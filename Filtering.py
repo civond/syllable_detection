@@ -6,7 +6,7 @@ from pydub import AudioSegment
 import matplotlib.pyplot as plt
 
 # Get audio paramaters
-audio_path = 'D:\\Dorian\\syllable_detection\\Audio\\long.flac'
+audio_path = 'D:\\Dorian\\syllable_detection\\Audio\\2hr.flac'
 #audio_path = 'D:\\Dorian\\ZebraFinch_data\\30cut\\01Label.wav'
 file_name = audio_path.split('\\')[-1]
 wav = AudioSegment.from_file(file = audio_path, 
