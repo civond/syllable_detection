@@ -1,45 +1,65 @@
 import scipy
 from scipy.io import wavfile
+import soundfile as sf
 from pydub import AudioSegment
 import numpy as np
 import matplotlib.pyplot as plt
 import os
 
 # Filter audio signal
-def filter_audio(audio_path,destination_path):
-    print(f"Reading {audio_path}")
-    wav = AudioSegment.from_file(file = audio_path, format = "wav")
-    duration = len(wav)/1000 # Pydub does things in ms
+def filter_audio(config):
     
-    print(f"\tLength: {len(wav)} samples.")
-    print(f"\tDuration: {duration} s.")
-    y = np.array(wav.get_array_of_samples())
-    fs = wav.frame_rate
-    print(f"\tSample rate: {fs}")
-    dt = 1/fs
-    t = np.arange(0,duration,dt)
+    # Import from config file
+    audio_path = config["Directories"]["audio_path"];
+    write_dir = config["Directories"]["filtered_audio_directory"];
+    
+    print(f"Reading {audio_path}");
+    wav = AudioSegment.from_file(file = audio_path, format = "flac");
+    duration = len(wav)/1000; # Pydub does things in ms
+    
+    print(f"\tLength: {len(wav)} samples.");
+    print(f"\tDuration: {duration} s.");
+    y = np.array(wav.get_array_of_samples());
+    fs = wav.frame_rate;
+    print(f"\tSample rate: {fs}");
+    dt = 1/fs;
+    t = np.arange(0,duration,dt);
 
     # Filter parameters
-    cutoff_freq = 350 # Hz
-    minimum_attenuation = 30 # dB
-    order = 8
+    cutoff_freq = 350; # Hz
+    minimum_attenuation = 30; # dB
+    order = 8;
     [b, a] = scipy.signal.cheby2(order,
                                 minimum_attenuation,
                                 cutoff_freq,
                                 fs=fs,
-                                btype="high")
+                                btype="high");
 
-    [w, h] = scipy.signal.freqz(b, a,fs=fs,worN=2000)
-    y_filtered = scipy.signal.filtfilt(b,a,y)
+    [w, h] = scipy.signal.freqz(b, a,fs=fs,worN=2000);
+    y_filtered = scipy.signal.filtfilt(b,a,y);
 
-    scaled = np.int16(y_filtered / np.max(np.abs(y_filtered)) * 32767)
+    scaled = np.int16(y_filtered / np.max(np.abs(y_filtered)) * 32767);
+    if os.path.isdir(write_dir) == False:
+        print(f"Write directory not found, creating: {write_dir}");
+        os.mkdir(write_dir);
+    else: 
+        pass
+    
+    # Generate 
+    audio_name = audio_path.split('/')[1].split('.')[0] + '_filtered.flac';
+    destination_path = os.path.join(write_dir,audio_name);
+    
     if os.path.exists(destination_path):
-        print(f"{destination_path} already exists. Overwriting...")
-        os.remove(destination_path)
-        wavfile.write(destination_path, fs, scaled)
+        print(f"{destination_path} already exists. Skipping.");
+        pass
     else:
-        print(f"Writing to: {destination_path}")
-        wavfile.write(destination_path, fs, scaled)
+        print(f"Writing to: {destination_path}");
+        sf.write(destination_path, 
+                 scaled, 
+                 fs, 
+                 format='FLAC');
+        #scaled.export(destination_path, format="flac")
+        #wavfile.write(destination_path, fs, scaled)
 
 '''
 # Plotting signals
