@@ -1,25 +1,20 @@
 [Directories]
-audio_directory = "Audio/"
-filtered_audio_path = "D:\\Dorian\\syllable_detection\\Audio_Filtered\\30Label_filtered.wav"
-#filtered_audio_path = 'D:\\Dorian\\syllable_detection\\Audio_Filtered\\2hr_filtered.flac'
+self = "config.toml"
+audio_path = "Audio/5hr.flac"
+filtered_audio_directory = "Audio_Filtered/"
+filtered_audio_path = "D:\\Dorian\\syllable_detection\\Audio_Filtered\\5hr_filtered.flac"
+#filtered_audio_path = "D:\\Dorian\\\\syllable_detection\\\\Audio_Filtered\\\\2hr_filtered.flac"
 write_directory = "Audio_Cut/"
 
 [Main]
-# Moving Average
-time_short = 50 # ms
-time_long = 250 # ms
-fs = 30000 # Samples / sec.
-
-# Mask Parameters
-min_time = 40 # ms
-threshold_overlap = 30 
-threshold_minimum_time = 40 # ms
-threshold_time = 400 # ms
-
-# Denoising
-threshold_noise = 8000 # Typically set above your maximum level
-threshold_power = 100 # dB
-target_frequency = 4000 # Hz
-
-# Extension (in time)
-time_extension = 100 # ms
+time_short = 50
+time_long = 250
+fs = 30000
+min_time = 40
+threshold_overlap = 30
+threshold_minimum_time = 40
+threshold_time = 400
+threshold_noise = 8000
+threshold_power = 100
+target_frequency = 4000
+time_extension = 100

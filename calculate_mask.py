@@ -83,8 +83,9 @@ def calculate_mask(config):
     
     threshold_samples = (threshold_time / 1000) * fs;
     threshold_minimum_samples = (threshold_minimum_time / 1000) * fs;
-
+    
     # Moving Averages
+    print("Generating mask...");
     short_smooth = convolve_fast(filtered_audio_path, 
                                 time_short);
     long_smooth = convolve_fast(filtered_audio_path, 
