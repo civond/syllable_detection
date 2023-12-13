@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-
+# Filter audio signal
 def filter_audio(audio_path,destination_path):
     print(f"Reading {audio_path}")
     wav = AudioSegment.from_file(file = audio_path, format = "wav")
