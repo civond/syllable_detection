@@ -1,0 +1,19 @@
+{
+    "audio_directory":"Audio/",
+    "write_directory": "Audio_Cut/",
+
+    "fs": 30000, 
+    "time_short": 50,
+    "time_long": 250,
+
+    "threshold_overlap": 30,
+    "threshold_time": 0.4,
+    "min_time": 40,
+
+    "noise_threshold": 8000,
+    "target_frequency": 4000,
+    "power_threshold":100,
+
+    "time_extension": 100
+
+}
