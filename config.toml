@@ -1,10 +1,15 @@
 [Directories]
 self = "config.toml"
-audio_path = "Audio/5hr.flac"
+#audio_path = "Audio/5hr.flac"
+audio_path = "Audio/finch_full.flac"
+#audio_path = "Audio/30Label.wav"
 filtered_audio_directory = "Audio_Filtered/"
-filtered_audio_path = "D:\\Dorian\\syllable_detection\\Audio_Filtered\\5hr_filtered.flac"
-#filtered_audio_path = "D:\\Dorian\\\\syllable_detection\\\\Audio_Filtered\\\\2hr_filtered.flac"
+filtered_audio_path = "D:\\Dorian\\syllable_detection\\Audio_Filtered\\finch_full_filtered_0.flac"
+#filtered_audio_path = "D:\\Dorian\\syllable_detection\\Audio_Filtered\\2hr_filtered.flac"
+#filtered_audio_path = "D:\\Dorian\\syllable_detection\\Audio_Filtered\\5hr_filtered.flac"
+
 write_directory = "Audio_Cut/"
+max_length = 5
 
 [Main]
 time_short = 50

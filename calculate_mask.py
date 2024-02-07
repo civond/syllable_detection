@@ -2,6 +2,7 @@
 import scipy.signal
 from pydub import AudioSegment
 import numpy as np
+import matplotlib.pyplot as plt
 
 # FFT() based convolution
 def convolve_fast(audio_path, time):
@@ -22,7 +23,27 @@ def filter_overlap(short_smooth,long_smooth,overlap_threshold):
     temp = short_smooth - long_smooth;
     temp_mask = temp < overlap_threshold;
     temp[temp_mask] = np.nan;
+    '''
+    fs = 30000;
+    duration = len(short_smooth)/fs
+    dt = 1/fs;
+    t = np.arange(0,duration,dt);
+    print(t)
     
+    plt.figure(1)
+    plt.plot(t,short_smooth, color='g');
+    plt.plot(t,long_smooth, color='b');
+    plt.plot(t,temp+long_smooth, color='r');
+    plt.grid("True")
+    plt.xlim(23.5,t[-1])
+    plt.ylabel('Moving Average Magnitude')
+    plt.xlabel('Time (s)')
+    plt.legend(['Short (50ms)', 'Long (250ms)', 'Overlap'],loc='best')
+
+    plt.title('Smoothing Filter Overlaps')
+    plt.tight_layout()
+    plt.show()
+    '''
     return temp
 
 # Remove overlaps under a minimum time threshold
@@ -63,13 +84,31 @@ def update_overlap(audio_path, overlap, maxZeros):
         else:
             overlap[start:end-nan_count] = array[start:end-nan_count];
     print(f"Cut operation finished!");
-           
+    '''
+    fs = 30000;
+    duration = len(array)/fs
+    dt = 1/fs;
+    t = np.arange(0,duration,dt);
+    print(t)
+    
+    plt.figure(2)
+    plt.plot(t,array, color='b');
+    plt.plot(t,overlap, color='r');
+    plt.grid("True")
+    plt.xlim(23.5,t[-1])
+    plt.ylabel('Amplitude')
+    plt.xlabel('Time (s)')
+    plt.legend(['Original Signal', 'Cut Signal'],loc='best')
+    plt.title('30_Label_Filtered.wav')
+    plt.tight_layout()
+    plt.show()
+    ''' 
     return overlap
 
 # Main function
-def calculate_mask(config):
+def calculate_mask(filtered_audio_path, config):
     # Input signal
-    filtered_audio_path = config['Directories']['filtered_audio_path'];
+    #filtered_audio_path = config['Directories']['filtered_audio_path'];
     
     # Time values
     time_short = config['Main']['time_short'];

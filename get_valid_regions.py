@@ -57,8 +57,8 @@ def for_back_extension(cut_signal, audio_path,extension_length):
     return back
 
 # Main function
-def get_valid_regions(cut_signal, config):
-    filtered_audio_path = config['Directories']['filtered_audio_path'];
+def get_valid_regions(cut_signal, filtered_audio_path, config):
+    #filtered_audio_path = config['Directories']['filtered_audio_path'];
     threshold_noise= config['Main']['threshold_noise'];
     target_frequency = config['Main']['target_frequency'];
     threshold_power = config['Main']['threshold_power'];
